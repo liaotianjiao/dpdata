@@ -20,11 +20,11 @@ setuptools.setup(
     setup_requires=['setuptools_scm'],
     author="Han Wang",
     author_email="wang_han@iapcm.ac.cn",
-    description="Manipulating data formats of DeePMD-kit, VASP, QE, and LAMMPS, etc.",
+    description="Manipulating DeePMD-kit, VASP and LAMMPS data formats",
     long_description=readme,
     long_description_content_type="text/markdown",
     url="https://github.com/deepmodeling/dpdata",
-    packages=['dpdata', 'dpdata/vasp', 'dpdata/lammps', 'dpdata/md', 'dpdata/deepmd', 'dpdata/qe', 'dpdata/gaussian', 'dpdata/cp2k'],
+    packages=['dpdata', 'dpdata/vasp', 'dpdata/lammps', 'dpdata/md', 'dpdata/deepmd', 'dpdata/pwscf', 'dpdata/siesta', 'dpdata/gaussian', 'dpdata/cp2k'],
     package_data={'dpdata':['*.json']},
     classifiers=[
         "Programming Language :: Python :: 3.6",

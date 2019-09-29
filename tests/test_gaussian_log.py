@@ -6,45 +6,29 @@ from comp_sys import CompLabeledSys
 
 class TestGaussianLog :
     def test_atom_names(self) :
-        self.assertEqual(self.system.data['atom_names'], self.atom_names)
+        self.assertEqual(self.system.data['atom_names'], ['C','H'])
 
     def test_atom_numbs(self) :
-        self.assertEqual(self.system.data['atom_numbs'], self.atom_numbs)
-    
-    def test_nframes(self):
-        self.assertEqual(len(self.system), self.nframes)
+        self.assertEqual(self.system.data['atom_numbs'], [1, 4])
 
     def test_atom_types(self) :
-        for ii in range(len(self.atom_types)) :
-            self.assertEqual(self.system.data['atom_types'][ii], self.atom_types[ii])
+        for ii in range(0,1) :
+            self.assertEqual(self.system.data['atom_types'][ii], 0)
+        for ii in range(1,5) :
+            self.assertEqual(self.system.data['atom_types'][ii], 1)
 
 class TestGaussianLoadLog(unittest.TestCase, TestGaussianLog):
     def setUp (self) :
         self.system = dpdata.LabeledSystem('gaussian/methane.gaussianlog', 
                                            fmt = 'gaussian/log')
-        self.atom_names = ['C','H']
-        self.atom_numbs = [1, 4]
-        self.nframes = 1
-        self.atom_types = [0, 1, 1, 1, 1]
-    
-class TestGaussianLoadMD(unittest.TestCase, TestGaussianLog):
-    def setUp (self) :
-        self.system = dpdata.LabeledSystem('gaussian/aimd_gaussian_CH4_output', 
-                                           fmt = 'gaussian/md')
-        self.atom_names = ['C','H']
-        self.atom_numbs = [1, 4]
-        self.nframes = 22
-        self.atom_types = [1, 1, 1, 1, 0]
 
+class TestNonCoveragedGaussianLog :
+    def test_atom_names(self) :
+        self.assertEqual(self.system.data['atom_names'], [])
 
-class TestNonCoveragedGaussianLoadLog(unittest.TestCase, TestGaussianLog):
-    def setUp (self) :
-        self.system = dpdata.LabeledSystem('gaussian/noncoveraged.gaussianlog',
-                                           fmt = 'gaussian/log')
-        self.atom_names = []
-        self.atom_numbs = []
-        self.nframes = 0
-    
+    def test_atom_numbs(self) :
+        self.assertEqual(self.system.data['atom_numbs'], [])
+
     def test_atom_types(self) :
         self.assertEqual(self.system.data['atom_types'], [])
 
@@ -61,7 +45,12 @@ class TestNonCoveragedGaussianLoadLog(unittest.TestCase, TestGaussianLog):
         self.assertEqual(self.system.data['forces'], [])
 
     def test_virials(self) :
-        self.assertFalse('virials' in self.system.data)
+        self.assertEqual(self.system.data['virials'], [])
+
+class TestNonCoveragedGaussianLoadLog(unittest.TestCase, TestNonCoveragedGaussianLog):
+    def setUp (self) :
+        self.system = dpdata.LabeledSystem('gaussian/noncoveraged.gaussianlog',
+                                           fmt = 'gaussian/log')
 
 if __name__ == '__main__':
     unittest.main()

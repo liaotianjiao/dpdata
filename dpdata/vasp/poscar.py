@@ -48,10 +48,9 @@ def to_system_data(lines) :
     return _to_system_data_lower(lines, is_cartesian)
 
 
-def from_system_data(system, f_idx = 0, skip_zeros = True) :
+def from_system_data(system, f_idx = 0) :
     ret = ''
     for ii,name in zip(system['atom_numbs'], system['atom_names']) :
-        if ii == 0: continue
         ret += '%s%d ' % (name, ii)
     ret += '\n'
     ret += '1.0\n'
@@ -59,12 +58,10 @@ def from_system_data(system, f_idx = 0, skip_zeros = True) :
         for jj in ii :
             ret += '%.16e ' % jj
         ret += '\n'
-    for idx,ii in enumerate(system['atom_names']) :
-        if system['atom_numbs'][idx] == 0: continue
+    for ii in system['atom_names'] :
         ret += '%s ' % ii
     ret += '\n'
     for ii in system['atom_numbs'] :
-        if ii == 0: continue
         ret += '%d ' % ii
     ret += '\n'
     ret += 'cartesian\n'
